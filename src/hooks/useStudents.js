@@ -54,6 +54,7 @@ export const useStudents = () => {
       ...studentData,
       vuId: normalizedVuId,
       vuPassword: encryptedPass,
+      portalPassword: (studentData.portalPassword || 'portal123').trim(),
       contactPrimary: studentData.contactPrimary || '',
       contactSecondary: studentData.contactSecondary || '',
       personalEmail: studentData.personalEmail || '',
@@ -78,6 +79,9 @@ export const useStudents = () => {
     }
     if (studentData.vuPassword) {
       dataToUpdate.vuPassword = encryptPassword(studentData.vuPassword, user.uid);
+    }
+    if (studentData.portalPassword) {
+      dataToUpdate.portalPassword = studentData.portalPassword.trim();
     }
     return updateDoc(doc(db, 'students', id), dataToUpdate);
   };

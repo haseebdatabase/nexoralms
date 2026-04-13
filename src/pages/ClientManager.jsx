@@ -34,7 +34,8 @@ const ClientManager = () => {
     personalEmail: '',
     vuEmail: '',
     subjects: '',
-    assignedAssistantId: ''
+    assignedAssistantId: '',
+    portalPassword: 'portal123' // Default for new students
   });
 
   const filteredStudents = students.filter(s => 
@@ -91,7 +92,8 @@ const ClientManager = () => {
       personalEmail: '',
       vuEmail: '',
       subjects: '', 
-      assignedAssistantId: '' 
+      assignedAssistantId: '',
+      portalPassword: 'portal123'
     });
   };
 
@@ -136,6 +138,7 @@ const ClientManager = () => {
             personalEmail: personalEmail || '',
             vuEmail: vuEmail || '',
             vuPassword: 'ChangeMe123!', // Default password for bulk
+            portalPassword: 'portal123',
             subjects: [],
             assignedAssistantId: ''
           });
@@ -361,12 +364,23 @@ const ClientManager = () => {
                   </select>
                 </div>
               </div>
-              <div>
-                <label className="block text-[10px] font-black text-dark-muted uppercase tracking-widest mb-1.5 text-left">Subjects (comma separated)</label>
-                <input 
-                  type="text" className="input-field font-bold" placeholder="CS101, ENG101, MTH301"
-                  value={newStudent.subjects} onChange={e => setNewStudent({...newStudent, subjects: e.target.value})}
-                />
+
+              <div className="grid grid-cols-2 gap-4">
+                <div>
+                  <label className="block text-[10px] font-black text-dark-muted uppercase tracking-widest mb-1.5 text-left">Portal Password (For Student Login)</label>
+                  <input 
+                    type="text" required className="input-field border-emerald-500/30 text-emerald-400" placeholder="portal123"
+                    value={newStudent.portalPassword} onChange={e => setNewStudent({...newStudent, portalPassword: e.target.value})}
+                  />
+                  <p className="text-[9px] text-dark-muted mt-1 italic">Students login with this password via the Portal.</p>
+                </div>
+                <div>
+                  <label className="block text-[10px] font-black text-dark-muted uppercase tracking-widest mb-1.5 text-left">Subjects (comma separated)</label>
+                  <input 
+                    type="text" className="input-field font-bold" placeholder="CS101, ENG101, MTH301"
+                    value={newStudent.subjects} onChange={e => setNewStudent({...newStudent, subjects: e.target.value})}
+                  />
+                </div>
               </div>
               <div className="flex gap-4 mt-8">
                 <button type="button" onClick={closeModal} className="flex-1 btn-secondary font-bold">Cancel</button>

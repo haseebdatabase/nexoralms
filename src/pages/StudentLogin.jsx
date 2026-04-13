@@ -16,11 +16,11 @@ const StudentLogin = () => {
     setLoading(true);
     try {
       // Search for student with this VU ID
-      const q = query(collection(db, 'students'), where('vuId', '==', vuId.toUpperCase()));
+      const q = query(collection(db, 'students'), where('vuId', '==', vuId.trim().toUpperCase()));
       const querySnapshot = await getDocs(q);
 
       if (querySnapshot.empty) {
-        throw new Error('Student record not found');
+        throw new Error('Student record not found. Please check your ID.');
       }
 
       const studentData = querySnapshot.docs[0].data();
